@@ -5,24 +5,37 @@ class Todo extends Component {
   state = {
     id: 0,
     taskList: [],
+    value: " ",
   };
 
-  handleSubmit = (event, value) => {
+  handleChange = (e) => {
+    const value = e.target.value;
+    this.setState({ value });
+    console.log(value);
+  };
+
+  handleSubmit = (event, inputVal) => {
     console.log("called");
     // prevent page from reloading
     event.preventDefault();
-    let { id, taskList } = this.state;
-    taskList.push({ id, value });
+    let { id, taskList, value } = this.state;
+    taskList.push({ id, value: inputVal });
     id++;
-    this.setState({ taskList: taskList, id: id });
+    value = "";
+    this.setState({ taskList: taskList, id: id, value });
     console.log(this.state.taskList);
   };
 
   render() {
+    const { value } = this.state;
     return (
       <div style={{ margin: "20px 20% 0 20%" }}>
         <h1>The Todo App</h1> <br />
-        <Input onSubmit={this.handleSubmit} />
+        <Input
+          value={value}
+          onChange={this.handleChange}
+          onSubmit={this.handleSubmit}
+        />
         <Tasks taskList={this.state.taskList} />
       </div>
     );
