@@ -1,6 +1,6 @@
 import React from "react";
-const Tasks = (props) => {
-  return <h1>hello {props.id}</h1>;
+const Tasks = ({ taskList }) => {
+  return taskList.map((task) => <h1>{task.value}</h1>);
 };
 
 export default Tasks;
