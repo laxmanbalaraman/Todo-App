@@ -11,11 +11,9 @@ class Todo extends Component {
   handleChange = (e) => {
     const value = e.target.value;
     this.setState({ value });
-    console.log(value);
   };
 
   handleSubmit = (event, inputVal) => {
-    console.log("called");
     // prevent page from reloading
     event.preventDefault();
     let { id, taskList, value } = this.state;
@@ -23,7 +21,12 @@ class Todo extends Component {
     id++;
     value = "";
     this.setState({ taskList: taskList, id: id, value });
-    console.log(this.state.taskList);
+  };
+
+  handleDelete = (id) => {
+    let taskList = [...this.state.taskList];
+    taskList = taskList.filter((task) => task.id != id);
+    this.setState({ taskList });
   };
 
   render() {
@@ -36,7 +39,7 @@ class Todo extends Component {
           onChange={this.handleChange}
           onSubmit={this.handleSubmit}
         />
-        <Tasks taskList={this.state.taskList} />
+        <Tasks taskList={this.state.taskList} onDelete={this.handleDelete} />
       </div>
     );
   }
